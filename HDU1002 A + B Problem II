@@ -1,0 +1,58 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<math.h>
+#include<vector>
+using namespace std;
+typedef long long ll;
+const int M = 1e4 + 10;
+int main()
+{
+	int n;
+	cin >> n;
+	int t = 0, ca = n;
+	while (n--) {
+		if(t != 0)cout << endl;
+		string sa, sb;
+		cin >> sa >> sb;
+		int lena = sa.length();
+		int lenb = sb.length();
+		int a[M], b[M];
+		memset(a, 0, M);
+		memset(b, 0, M);
+		for (int i = 0; i < lena; i++) {
+			a[i] = sa[lena - i - 1] - '0';
+			//cout << a[i];
+		}
+		for (int i = 0; i < lenb; i++) {
+			b[i] = sb[lenb - i - 1] - '0';
+			//cout << b[i];
+		}
+		int xun = max(lena, lenb) + 1;
+		int res[M];
+		memset(res, 0, M);
+		for (int i = 0; i < xun; i++) {
+			int temp = a[i] + b[i] + res[i];
+			//cout << temp << endl;
+			res[i] = temp % 10;
+			if (temp > 9) res[i + 1] += temp / 10;
+			//cout <<res[i];
+		}
+		for (int i = xun - 1; i >= 0; i--) {
+			if (0 == res[i] && xun > 1) {
+				xun--;
+			}
+			else {
+				break;
+			}
+		}
+		t++;
+		cout << "Case " << t << ":" << endl;
+		cout << sa << " + " << sb << " = ";
+		for (int i = xun - 1; i >= 0; i--) {
+			cout << res[i];
+		}
+		//if (t != ca) cout << '\n' << endl;
+		cout << endl;
+	}
+}
