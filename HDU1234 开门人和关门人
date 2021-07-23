@@ -1,0 +1,49 @@
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<math.h>
+#include<vector>
+using namespace std;
+typedef long long ll;
+//const int N = 1000;
+struct people {
+	string name;
+	int h, m, s;
+	int lh, lm, ls;
+}p[1001];
+bool cmp(people a, people b) {
+	if(a.lh != b.lh)
+		return a.lh > b.lh;
+	if (a.lh == b.lh && a.lm == b.lm)
+		return a.ls > b.ls;
+	if (a.lh == b.lh)
+		return a.lm > b.lm;
+	
+}
+bool kai(people a, people b) {
+	if (a.h != b.h)
+		return a.h < b.h;
+	if (a.h == b.h && a.m == b.m)
+		return a.s < b.s;
+	if (a.h == b.h)
+		return a.m < b.m;
+}
+int main()
+{
+	int n;
+	cin >> n;
+	while (n--) {
+		int M = 0;
+		cin >> M;
+		for (int i = 0; i < M; i++) {
+			cin >> p[i].name;
+			scanf_s("%d:%d:%d", &p[i].h, &p[i].m, &p[i].s);
+			scanf_s("%d:%d:%d", &p[i].lh, &p[i].lm, &p[i].ls);
+		}
+		sort(p, p + M, kai);
+		cout << p[0].name << ' ';
+		sort(p, p + M, cmp);
+		cout << p[0].name <<endl;
+	}
+	return 0;
+}
